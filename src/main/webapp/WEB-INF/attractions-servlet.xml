@@ -1,36 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:ctx="http://www.springframework.org/schema/context"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-        http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/mvc
+		http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-    <ctx:annotation-config></ctx:annotation-config>
-    <ctx:component-scan base-package="attractions.controller">
-    </ctx:component-scan>
+    <context:component-scan base-package="attractions"/>
 
-    <bean
-            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <mvc:annotation-driven/>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/view/" />
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <!--
     <bean id="userService" class="attractions.service.UserServiceImpl" />
-    <bean id="userDao" class="attractions.dao.UserDaoImpl" />
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="datasource" />
+    <bean id="userDao" class="attractions.dao.UserDaoImpl" />                   -->
+
+    <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
+        <!--<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/attractions?useSSL=false&amp;serverTimezone=UTC" />-->
+        <property name="jdbcUrl" value="jdbc:mysql://35.227.27.128:3306/attractions" />
+        <property name="user" value="root" />
+        <property name="password" value="attractions" />
+        <!-- these are connection pool properties for C3P0 -->
+        <property name="minPoolSize" value="5" />
+        <property name="maxPoolSize" value="20" />
+        <property name="maxIdleTime" value="30000" />
     </bean>
-    <bean id="datasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/myusers" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
+    <!-- Step 2: Setup Hibernate session factory -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="myDataSource" />
+        <property name="packagesToScan" value="attractions.entity" />
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+                <prop key="hibernate.show_sql">true</prop>
+            </props>
+        </property>
+
     </bean>
+    <!-- Step 3: Setup Hibernate transaction manager -->
+    <bean id="myTransactionManager"
+          class="org.springframework.orm.hibernate5.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="myTransactionManager" />
 
 </beans>
