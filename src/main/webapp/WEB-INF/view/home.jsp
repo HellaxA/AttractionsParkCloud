@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <!DOCTYPE html>
 <html>
@@ -9,9 +8,13 @@
 <body>
 <table align="center">
     <tr>
-        <td><a href="/showTickets">Buy ticket</a>
-        </td>
+        <td><a href="/showTickets">Show Tickets</a></td>
+        <td><a href="/showCustomers">Show Customers</a></td>
     </tr>
 </table>
+
+<input type="button" value="Buy Ticket!"
+       onclick="window.location.href='buyForm'; return false;"
+       class="buyButton">
 </body>
 </html>

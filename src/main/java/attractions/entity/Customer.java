@@ -16,10 +16,15 @@ public class Customer {
     @Column(name = "Date_of_attendance")
     private String date;
 
+    @Column(name = "email")
+    private String email;
+
     @OneToMany(mappedBy = "customer",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
                     CascadeType.REFRESH, CascadeType.MERGE})
     private List<Ticket> tickets;
+
+
 
     public Customer() {
     }
@@ -27,6 +32,14 @@ public class Customer {
     public Customer(String idCustomer, String date) {
         this.idCustomer = idCustomer;
         this.date = date;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getIdCustomer() {

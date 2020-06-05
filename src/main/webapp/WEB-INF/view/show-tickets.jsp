@@ -23,14 +23,14 @@
         <th>Time</th>
     </tr>
     <c:forEach var="ticket" items="${tickets}">
-            <tr>
-                <td>${ticket.idTicket}</td>
-                <td>${ticket.ticketPrice}</td>
-                <td>${ticket.dateOfIssuance}</td>
-                <td>${ticket.customer}</td>
-                <td>${ticket.ticketTerminal}</td>
-                <td>${ticket.timeOfIssuance}</td>
-            </tr>
+        <tr>
+            <td>${ticket.idTicket}</td>
+            <td>${ticket.ticketPrice}</td>
+            <td>${ticket.dateOfIssuance}</td>
+            <td>${ticket.customer}</td>
+            <td>${ticket.ticketTerminal}</td>
+            <td>${ticket.timeOfIssuance}</td>
+        </tr>
     </c:forEach>
 </table>
 
