@@ -19,7 +19,8 @@ public class Customer {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy = "customer",
+    @OneToMany(fetch=FetchType.EAGER,
+            mappedBy = "customer",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
                     CascadeType.REFRESH, CascadeType.MERGE})
     private List<Ticket> tickets;

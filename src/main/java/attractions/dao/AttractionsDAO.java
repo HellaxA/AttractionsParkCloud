@@ -1,5 +1,6 @@
 package attractions.dao;
 
+import attractions.entity.Attraction;
 import attractions.entity.Customer;
 import attractions.entity.Ticket;
 
@@ -11,4 +12,8 @@ public interface AttractionsDAO {
     public List<Customer> getCustomers() ;
 
     public Ticket createTicket();
+
+    public List<Attraction> getAttractions();
+
+    public Attraction createAttraction();
 }

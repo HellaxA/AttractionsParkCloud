@@ -1,6 +1,7 @@
 package attractions.service;
 
 import attractions.dao.AttractionsDAO;
+import attractions.entity.Attraction;
 import attractions.entity.Customer;
 import attractions.entity.Ticket;
 import org.hibernate.Session;
@@ -28,6 +29,19 @@ public class AttractionsServiceImpl implements AttractionsService{
     @Transactional
     public Ticket createTicket() {
         return attractionsDAO.createTicket();
+    }
+
+    @Override
+    @Transactional
+    public Attraction createAttraction() {
+        return attractionsDAO.createAttraction();
+    }
+
+
+    @Override
+    @Transactional
+    public List<Attraction> getAttractions() {
+        return attractionsDAO.getAttractions();
     }
 
     @Override

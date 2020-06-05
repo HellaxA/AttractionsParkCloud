@@ -14,7 +14,8 @@ public class TicketTerminal {
     @Column(name = "Payment_type")
     private String paymentType;
 
-    @OneToMany(mappedBy = "ticketTerminal",
+    @OneToMany(fetch=FetchType.EAGER,
+            mappedBy = "ticketTerminal",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
                     CascadeType.REFRESH, CascadeType.MERGE})
     private List<Ticket> tickets;

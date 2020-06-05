@@ -1,7 +1,9 @@
 package attractions.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "ticket")
@@ -17,18 +19,30 @@ public class Ticket {
     @Column(name = "Date_of_issuance")
     private String dateOfIssuance;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+    @ManyToOne(fetch=FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_customer")
     private Customer customer;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+    @ManyToOne(fetch=FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH,
             CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_ticket_terminal")
     private TicketTerminal ticketTerminal;
 
     @Column(name = "Time_of_issuance")
     private String timeOfIssuance;
+
+    @ManyToMany(fetch=FetchType.EAGER,
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH,
+                    CascadeType.REFRESH, CascadeType.MERGE})
+    @JoinTable(
+            name = "ticket_row",
+            joinColumns = @JoinColumn(name = "ID_ticket"),
+            inverseJoinColumns = @JoinColumn(name = "ID_attraction")
+    )
+    private List<Attraction> attractions;
 
     public Ticket() {
     }
@@ -48,6 +62,14 @@ public class Ticket {
                 ", dateOfIssuance='" + dateOfIssuance + '\'' +
                 ", timeOfIssuance='" + timeOfIssuance + '\'' +
                 '}';
+    }
+
+    public List<Attraction> getAttractions() {
+        return attractions;
+    }
+
+    public void setAttractions(List<Attraction> attractions) {
+        this.attractions = attractions;
     }
 
     public String getIdTicket() {
@@ -96,5 +118,12 @@ public class Ticket {
 
     public void setTimeOfIssuance(String timeOfIssuance) {
         this.timeOfIssuance = timeOfIssuance;
+    }
+
+    public void addAttraction(Attraction attraction) {
+        if(attractions == null) {
+            attractions = new ArrayList<>();
+        }
+        attractions.add(attraction);
     }
 }

@@ -1,5 +1,6 @@
 package attractions.service;
 
+import attractions.entity.Attraction;
 import attractions.entity.Customer;
 import attractions.entity.Ticket;
 
@@ -11,4 +12,10 @@ public interface AttractionsService {
     public List<Customer> getCustomers() ;
 
     public Ticket createTicket();
+
+    public Attraction createAttraction();
+
+    public List<Attraction> getAttractions();
+
+
 }

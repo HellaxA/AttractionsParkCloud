@@ -1,6 +1,7 @@
 package attractions.controller;
 
 import attractions.email.SendEmail;
+import attractions.entity.Attraction;
 import attractions.entity.Customer;
 import attractions.entity.Ticket;
 import attractions.service.AttractionsService;
@@ -37,9 +38,14 @@ public class HelloController {
 
     @GetMapping("/showCustomers")
     public String showCustomers(Model model) {
-        attractionsService.createTicket();
+        //attractionsService.createTicket();
+        attractionsService.createAttraction();
         List<Customer> customers = attractionsService.getCustomers();
+        List<Attraction> attractions = attractionsService.getAttractions();
+
         model.addAttribute("customers", customers);
+        model.addAttribute("attractions", attractions);
+
         return "show-customers";
     }
 
