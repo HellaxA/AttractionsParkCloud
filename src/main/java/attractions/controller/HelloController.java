@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,20 +65,21 @@ public class HelloController {
     public String sendEmail(@ModelAttribute("dynamicForm") DynamicForm dynamicForm, Model model) {
 
 
-        //dynamicForm.getTickets(): FerrisWheel, Trampoline, Carousel, Karting,
-        // Simulated Steam Track Train Ride, Giraffe Flying Chair
+        //dynamicForm.getTickets(): FerrisWheel, Trampoline, Giraffe Flying Chair, Viking pirate ship,
+        // Kids Pirate Ship Rides, Roller Coaster
+
+        List<Object> objects = attractionsService.makeTicket(dynamicForm);
+        Ticket ticket = (Ticket)objects.get(0);
+        HashMap<Attraction, Integer> attractions = (HashMap)objects.get(1);
 
 
-//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-//        LocalDateTime now = LocalDateTime.now();
-//        customer.setDate(dtf.format(now));
         String email = dynamicForm.getEmail();
+        String key = ticket.getAccessKey();//ticket UNIQUE key
+        new EmailExecuter().sendEmail(email, key, attractions, ticket);
 
-
-
-        String key = "";//Customer UNIQUE key
-        new EmailExecuter().sendEmail(email, key);
         model.addAttribute("email", email);
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("attractions", attractions);
         return "sent";
     }
 

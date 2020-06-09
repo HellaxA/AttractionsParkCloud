@@ -3,6 +3,7 @@ package attractions.service;
 import attractions.dao.AttractionsDAO;
 import attractions.entity.Attraction;
 import attractions.entity.Customer;
+import attractions.entity.DynamicForm;
 import attractions.entity.Ticket;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class AttractionsServiceImpl implements AttractionsService{
     @Transactional
     public Long getAmountOfAttractions() {
         return attractionsDAO.getAmountOfAttractions();
+    }
+
+    @Override
+    @Transactional
+    public List<Object> makeTicket(DynamicForm dynamicForm) {
+        return attractionsDAO.makeTicket(dynamicForm);
     }
 
     @Override

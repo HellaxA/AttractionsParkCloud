@@ -2,6 +2,7 @@ package attractions.service;
 
 import attractions.entity.Attraction;
 import attractions.entity.Customer;
+import attractions.entity.DynamicForm;
 import attractions.entity.Ticket;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface AttractionsService {
     Attraction getAttraction(String attraction);
 
     Long getAmountOfAttractions();
+
+    List<Object> makeTicket(DynamicForm dynamicForm);
 }

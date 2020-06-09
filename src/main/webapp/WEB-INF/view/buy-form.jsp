@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: 38095
-  Date: 6/4/2020
-  Time: 7:02 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -27,9 +20,8 @@
             }
             return true;
         }
-
         function validateEmail(){
-        let email = document.getElementById("email");
+            let email = document.getElementById("email");
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value))
             {
                 return true
@@ -49,59 +41,59 @@
         </tr>
         <tr>
             <td>
-                Email(*):
+                Email:
             </td>
             <td>
-                <form:input path="email" id="email"/>
+                <form:input path="email" id="email" onchange="validateNumber()"/>
             </td>
         </tr>
 
         <tr>
             <td>
-                FerrisWheel:
+                    ${dynamicForm.attractionNames[0]}
             </td>
             <td>
-                <form:input path="tickets[0]" id="number"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Trampouline:
-            </td>
-            <td>
-                <form:input path="tickets[1]" id="number"/>
+                <form:input path="tickets[0]" onchange="validateNumber()"/>
             </td>
         </tr>
         <tr>
             <td>
-                Giraffe Flying Chair:
+                    ${dynamicForm.attractionNames[1]}
             </td>
             <td>
-                <form:input path="tickets[2]" id="number"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Viking pirate ship:
-            </td>
-            <td>
-                <form:input path="tickets[3]" id="number"/>
+                <form:input path="tickets[1]" onchange="validateNumber()"/>
             </td>
         </tr>
         <tr>
             <td>
-                Kids Pirate Ship Rides:
+                    ${dynamicForm.attractionNames[2]}
             </td>
             <td>
-                <form:input path="tickets[4]" id="number"/>
+                <form:input path="tickets[2]" onchange="validateNumber()"/>
             </td>
         </tr>
         <tr>
             <td>
-                Roller Coaster:
+                    ${dynamicForm.attractionNames[3]}
             </td>
             <td>
-                <form:input path="tickets[5]" id="number"/>
+                <form:input path="tickets[3]" onchange="validateNumber()"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    ${dynamicForm.attractionNames[4]}
+            </td>
+            <td>
+                <form:input path="tickets[4]" onchange="validateNumber()"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                    ${dynamicForm.attractionNames[5]}
+            </td>
+            <td>
+                <form:input path="tickets[5]" onchange="validateNumber()"/>
             </td>
         </tr>
         <tr>
