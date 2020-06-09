@@ -1,21 +1,21 @@
 package attractions.controller;
 
-import attractions.email.SendEmail;
+import attractions.email.EmailExecuter;
 import attractions.entity.Attraction;
 import attractions.entity.Customer;
+import attractions.entity.DynamicForm;
 import attractions.entity.Ticket;
 import attractions.service.AttractionsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 @Controller
 public class HelloController {
@@ -39,7 +39,7 @@ public class HelloController {
     @GetMapping("/showCustomers")
     public String showCustomers(Model model) {
         //attractionsService.createTicket();
-        attractionsService.createAttraction();
+        //  attractionsService.createTicketRow();
         List<Customer> customers = attractionsService.getCustomers();
         List<Attraction> attractions = attractionsService.getAttractions();
 
@@ -51,33 +51,33 @@ public class HelloController {
 
     @GetMapping("/buyForm")
     public String buyTicket(Model model) {
-        Customer customer = new Customer();
-        model.addAttribute("customer", customer);
+        //6 attractions + customer email
+        Long amountOfAttractions = attractionsService.getAmountOfAttractions();
+        DynamicForm dynamicForm = new DynamicForm(amountOfAttractions);
+
+        model.addAttribute("dynamicForm", dynamicForm);
+
         return "buy-form";
     }
 
-    @PostMapping("/sendEmail")
-    public String sendEmail(@ModelAttribute("customer") Customer customer, Model model) {
-        customer.setIdCustomer(UUID.randomUUID().toString());
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-        customer.setDate(dtf.format(now));
+    @PostMapping("/sendTicket")
+    public String sendEmail(@ModelAttribute("dynamicForm") DynamicForm dynamicForm, Model model) {
 
-        SendEmail.SMTP_SERVER = "smtp.gmail.com";
-        SendEmail.SMTP_Port = "465";
-        SendEmail.EMAIL_FROM = "AttractionsProject@gmail.com";
-        SendEmail.SMTP_AUTH_USER = "AttractionsProject";
-        SendEmail.SMTP_AUTH_PWD = "stZ2B6t4k7e3zZ7V";
-        SendEmail.REPLY_TO = "AttractionsProject@gmail.com";
 
-        //SendEmail.FILE_PATH      = PROPS_FILE;
-        String emailTo = customer.getEmail();
-        String thema = "";
-        String text = "" + customer.getIdCustomer();
-        SendEmail se = new SendEmail(emailTo, thema);
-        se.sendMessage(text);
+        //dynamicForm.getTickets(): FerrisWheel, Trampoline, Carousel, Karting,
+        // Simulated Steam Track Train Ride, Giraffe Flying Chair
 
-        model.addAttribute("email", customer.getEmail());
+
+//        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+//        LocalDateTime now = LocalDateTime.now();
+//        customer.setDate(dtf.format(now));
+        String email = dynamicForm.getEmail();
+
+
+
+        String key = "";//Customer UNIQUE key
+        new EmailExecuter().sendEmail(email, key);
+        model.addAttribute("email", email);
         return "sent";
     }
 

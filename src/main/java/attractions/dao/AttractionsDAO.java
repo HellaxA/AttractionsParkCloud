@@ -15,5 +15,9 @@ public interface AttractionsDAO {
 
     public List<Attraction> getAttractions();
 
-    public Attraction createAttraction();
+    public Attraction createTicketRow();
+
+    Attraction getAttraction(String attraction);
+
+    Long getAmountOfAttractions();
 }

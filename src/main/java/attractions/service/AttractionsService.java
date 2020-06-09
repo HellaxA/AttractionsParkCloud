@@ -13,9 +13,11 @@ public interface AttractionsService {
 
     public Ticket createTicket();
 
-    public Attraction createAttraction();
+    public Attraction createTicketRow();
 
     public List<Attraction> getAttractions();
 
+    Attraction getAttraction(String attraction);
 
+    Long getAmountOfAttractions();
 }

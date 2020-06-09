@@ -4,9 +4,6 @@ import attractions.dao.AttractionsDAO;
 import attractions.entity.Attraction;
 import attractions.entity.Customer;
 import attractions.entity.Ticket;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,8 +30,8 @@ public class AttractionsServiceImpl implements AttractionsService{
 
     @Override
     @Transactional
-    public Attraction createAttraction() {
-        return attractionsDAO.createAttraction();
+    public Attraction createTicketRow() {
+        return attractionsDAO.createTicketRow();
     }
 
 
@@ -42,6 +39,18 @@ public class AttractionsServiceImpl implements AttractionsService{
     @Transactional
     public List<Attraction> getAttractions() {
         return attractionsDAO.getAttractions();
+    }
+
+    @Override
+    @Transactional
+    public Attraction getAttraction(String attraction) {
+        return attractionsDAO.getAttraction(attraction);
+    }
+
+    @Override
+    @Transactional
+    public Long getAmountOfAttractions() {
+        return attractionsDAO.getAmountOfAttractions();
     }
 
     @Override

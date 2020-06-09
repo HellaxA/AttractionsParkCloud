@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "ticket")
 public class Ticket {
-
     @Id
     @Column(name = "ID_ticket")
     private String idTicket;
@@ -18,6 +17,9 @@ public class Ticket {
 
     @Column(name = "Date_of_issuance")
     private String dateOfIssuance;
+
+    @Column(name = "Access_Key")
+    private String accessKey;
 
     @ManyToOne(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
@@ -47,10 +49,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String idTicket, int ticketPrice, String dateOfIssuance, String timeOfIssuance) {
+    public Ticket(String idTicket, int ticketPrice, String dateOfIssuance, String timeOfIssuance, String accessKey) {
         this.idTicket = idTicket;
         this.ticketPrice = ticketPrice;
         this.dateOfIssuance = dateOfIssuance;
+        this.accessKey = accessKey;
         this.timeOfIssuance = timeOfIssuance;
     }
 
@@ -118,6 +121,14 @@ public class Ticket {
 
     public void setTimeOfIssuance(String timeOfIssuance) {
         this.timeOfIssuance = timeOfIssuance;
+    }
+
+    public String getAccessKey() {
+        return accessKey;
+    }
+
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
     public void addAttraction(Attraction attraction) {

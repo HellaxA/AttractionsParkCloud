@@ -6,7 +6,7 @@
     <title>Welcome</title>
 </head>
 <body>
-<table align="center">
+<table>
     <tr>
         <td><a href="/showTickets">Show Tickets</a></td>
         <td><a href="/showCustomers">Show Customers</a></td>

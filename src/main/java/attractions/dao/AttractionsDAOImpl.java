@@ -11,6 +11,7 @@ import org.w3c.dom.Attr;
 
 
 import java.util.List;
+import java.util.UUID;
 
 @Repository
 public class AttractionsDAOImpl implements AttractionsDAO {
@@ -29,7 +30,6 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     public List<Customer> getCustomers() {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Customer> theQuery = currentSession.createQuery("from Customer", Customer.class);
-        System.out.println("CUSTOMERS : " + theQuery.getResultList());
         return theQuery.getResultList();
     }
 
@@ -37,29 +37,47 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     public List<Attraction> getAttractions() {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Attraction> theQuery = currentSession.createQuery("from Attraction", Attraction.class);
-        System.out.println("Attractions : " + theQuery.getResultList());
         return theQuery.getResultList();
     }
 
+
     @Override
-    public Attraction createAttraction() {
+    public Attraction getAttraction(String attraction) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Attraction> theQuery = currentSession.createQuery("from Attraction where nameOfAttraction = :attraction", Attraction.class);
+        theQuery.setParameter("attraction", attraction);
+        return theQuery.getSingleResult();
+    }
+
+    @Override
+    public Long getAmountOfAttractions() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Long> theQuery = currentSession.createQuery("select COUNT(*) from Attraction", Long.class);
+        return theQuery.getSingleResult();
+    }
+
+
+    @Override
+    public Attraction createTicketRow() {
 
         Session currentSession = sessionFactory.getCurrentSession();
 
-        String idAttraction = "AT3";
+        String idAttraction = "AT1";
         Query<Attraction> attractionQuery = currentSession
                 .createQuery("from Attraction where idAttraction = :idAttraction",
                         Attraction.class);
         attractionQuery.setParameter("idAttraction", idAttraction);
         Attraction attraction = attractionQuery.getSingleResult();
+        System.out.println(attraction);
         //System.out.println("------------------------------------------------------------------------------------------------");
 
-        String idAttraction2 = "AT5";
+        String idAttraction2 = "AT2";
         Query<Attraction> attractionQuery2 = currentSession
                 .createQuery("from Attraction where idAttraction = :idAttraction2",
                         Attraction.class);
         attractionQuery2.setParameter("idAttraction2", idAttraction2);
         Attraction attraction2 = attractionQuery2.getSingleResult();
+        System.out.println(attraction2);
         //System.out.println("------------------------------------------------------------------------------------------------");
 
         String administratorID = "A2";
@@ -72,7 +90,7 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         //System.out.println("------------------------------------------------------------------------------------------------");
 
         //Get TechSupportTeam with id = TST1
-        String techSupportTeamID = "TST2";
+        String techSupportTeamID = "TST1";
         Query<TechSupportTeam> techSupportTeamQuery = currentSession
                 .createQuery("from TechSupportTeam where idTeam = :techSupportTeamID",
                         TechSupportTeam.class);
@@ -81,7 +99,7 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         System.out.println(techSupportTeam);
         //System.out.println("------------------------------------------------------------------------------------------------");
 
-        String ticketTerminalId = "TT2";
+        String ticketTerminalId = "TT1";
         Query<TicketTerminal> ticketTerminalQuery = currentSession
                 .createQuery("from TicketTerminal where idTicketTerminal = :ticketTerminalId",
                         TicketTerminal.class);
@@ -89,10 +107,10 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         TicketTerminal ticketTerminal = ticketTerminalQuery.getSingleResult();
         //System.out.println("------------------------------------------------------------------------------------------------");
 
-        Ticket ticket = new Ticket("T7", attraction.getPriceOfAttraction() +
-                attraction2.getPriceOfAttraction(), "14-06-2020", "10:00");
+        Ticket ticket = new Ticket("T1", attraction.getPriceOfAttraction() +
+                attraction2.getPriceOfAttraction(), "14-06-2020", "10:00", UUID.randomUUID().toString());
 
-        Customer customer = new Customer("C7", "14-06-2020");
+        Customer customer = new Customer("C1", "14-06-2020");
         //System.out.println("------------------------------------------------------------------------------------------------");
 
         customer.addTicket(ticket);
@@ -121,7 +139,7 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         Customer customer = new Customer("C1", "14-06-2020");
         TicketTerminal ticketTerminal = new TicketTerminal("TT3", "card");
 
-        Ticket ticket = new Ticket("T1", 20, "14-06-2020", "10:00");
+        Ticket ticket = new Ticket("T1", 20, "14-06-2020", "10:00", UUID.randomUUID().toString());
 
         ticket.setTicketTerminal(ticketTerminal);
         ticket.setCustomer(customer);
