@@ -25,19 +25,6 @@ public class AttractionsServiceImpl implements AttractionsService{
 
     @Override
     @Transactional
-    public Ticket createTicket() {
-        return attractionsDAO.createTicket();
-    }
-
-    @Override
-    @Transactional
-    public Attraction createTicketRow() {
-        return attractionsDAO.createTicketRow();
-    }
-
-
-    @Override
-    @Transactional
     public List<Attraction> getAttractions() {
         return attractionsDAO.getAttractions();
     }
@@ -58,6 +45,12 @@ public class AttractionsServiceImpl implements AttractionsService{
     @Transactional
     public List<Object> makeTicket(DynamicForm dynamicForm) {
         return attractionsDAO.makeTicket(dynamicForm);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAttraction(String attractionId) {
+        attractionsDAO.deleteAttraction(attractionId);
     }
 
     @Override

@@ -16,5 +16,10 @@
 <input type="button" value="Buy Ticket!"
        onclick="window.location.href='buyForm'; return false;"
        class="buyButton">
+
+
+<input type="button" value="Login as a Administrator"
+       onclick="window.location.href='admin-login/staff-only'; return false;"
+       class="secretButton">
 </body>
 </html>

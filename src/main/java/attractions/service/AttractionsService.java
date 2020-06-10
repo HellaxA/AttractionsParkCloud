@@ -10,11 +10,7 @@ import java.util.List;
 public interface AttractionsService {
     public List<Ticket> getTickets();
 
-    public List<Customer> getCustomers() ;
-
-    public Ticket createTicket();
-
-    public Attraction createTicketRow();
+    public List<Customer> getCustomers();
 
     public List<Attraction> getAttractions();
 
@@ -23,4 +19,6 @@ public interface AttractionsService {
     Long getAmountOfAttractions();
 
     List<Object> makeTicket(DynamicForm dynamicForm);
+
+    void deleteAttraction(String attractionId);
 }

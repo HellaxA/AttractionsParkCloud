@@ -7,7 +7,6 @@ import attractions.entity.DynamicForm;
 import attractions.entity.Ticket;
 import attractions.service.AttractionsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class HelloController {
@@ -26,14 +24,14 @@ public class HelloController {
 
     @GetMapping("/home")
     public String home() {
-        return "home";
+        return "customer/home-page";
     }
 
     @GetMapping("/showTickets")
     public String showTickets(Model model) {
         List<Ticket> tickets = attractionsService.getTickets();
         model.addAttribute("tickets", tickets);
-        return "show-tickets";
+        return "customer/show-tickets-page";
 
     }
 
@@ -47,7 +45,7 @@ public class HelloController {
         model.addAttribute("customers", customers);
         model.addAttribute("attractions", attractions);
 
-        return "show-customers";
+        return "customer/show-customers-page";
     }
 
     @GetMapping("/buyForm")
@@ -58,7 +56,7 @@ public class HelloController {
 
         model.addAttribute("dynamicForm", dynamicForm);
 
-        return "buy-form";
+        return "customer/buy-form-page";
     }
 
     @PostMapping("/sendTicket")
@@ -80,7 +78,7 @@ public class HelloController {
         model.addAttribute("email", email);
         model.addAttribute("ticket", ticket);
         model.addAttribute("attractions", attractions);
-        return "sent";
+        return "customer/sent-page";
     }
 
 

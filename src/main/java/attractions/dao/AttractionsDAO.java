@@ -12,15 +12,14 @@ public interface AttractionsDAO {
 
     public List<Customer> getCustomers() ;
 
-    public Ticket createTicket();
 
     public List<Attraction> getAttractions();
-
-    public Attraction createTicketRow();
 
     Attraction getAttraction(String attraction);
 
     Long getAmountOfAttractions();
 
     List<Object> makeTicket(DynamicForm dynamicForm);
+
+    void deleteAttraction(String attractionId);
 }

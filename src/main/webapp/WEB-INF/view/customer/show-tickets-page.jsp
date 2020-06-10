@@ -29,7 +29,6 @@
             <td>${ticket.dateOfIssuance}</td>
             <td>${ticket.customer}</td>
             <td>${ticket.ticketTerminal}</td>
-            <td>${ticket.timeOfIssuance}</td>
         </tr>
     </c:forEach>
 </table>

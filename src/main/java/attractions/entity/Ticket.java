@@ -33,9 +33,6 @@ public class Ticket {
     @JoinColumn(name = "ID_ticket_terminal")
     private TicketTerminal ticketTerminal;
 
-    @Column(name = "Time_of_issuance")
-    private String timeOfIssuance;
-
     @ManyToMany(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
                     CascadeType.REFRESH, CascadeType.MERGE})
@@ -49,12 +46,11 @@ public class Ticket {
     public Ticket() {
     }
 
-    public Ticket(String idTicket, int ticketPrice, String dateOfIssuance, String timeOfIssuance, String accessKey) {
+    public Ticket(String idTicket, int ticketPrice, String dateOfIssuance, String accessKey) {
         this.idTicket = idTicket;
         this.ticketPrice = ticketPrice;
         this.dateOfIssuance = dateOfIssuance;
         this.accessKey = accessKey;
-        this.timeOfIssuance = timeOfIssuance;
     }
 
     @Override
@@ -63,7 +59,6 @@ public class Ticket {
                 "idTicket='" + idTicket + '\'' +
                 ", ticketPrice=" + ticketPrice +
                 ", dateOfIssuance='" + dateOfIssuance + '\'' +
-                ", timeOfIssuance='" + timeOfIssuance + '\'' +
                 '}';
     }
 
@@ -113,14 +108,6 @@ public class Ticket {
 
     public void setTicketTerminal(TicketTerminal ticketTerminal) {
         this.ticketTerminal = ticketTerminal;
-    }
-
-    public String getTimeOfIssuance() {
-        return timeOfIssuance;
-    }
-
-    public void setTimeOfIssuance(String timeOfIssuance) {
-        this.timeOfIssuance = timeOfIssuance;
     }
 
     public String getAccessKey() {

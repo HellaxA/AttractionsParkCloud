@@ -29,6 +29,9 @@ public class Administrator {
     @Column(name = "Position")
     private String position;
 
+    @Column(name = "Password")
+    private String password;
+
     @OneToMany(fetch=FetchType.EAGER,
             mappedBy = "administrator",
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
@@ -47,6 +50,14 @@ public class Administrator {
         this.surname = surname;
         this.middleName = middleName;
         this.position = position;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIdAdministrator() {

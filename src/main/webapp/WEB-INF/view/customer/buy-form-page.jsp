@@ -1,6 +1,12 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 38095
+  Date: 6/4/2020
+  Time: 7:02 PM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <html>
 <head>
     <title>Buy Ticket</title>
@@ -41,10 +47,10 @@
         </tr>
         <tr>
             <td>
-                Email:
+                Email(*):
             </td>
             <td>
-                <form:input path="email" id="email" onchange="validateNumber()"/>
+                <form:input path="email" id="email"/>
             </td>
         </tr>
 
@@ -53,7 +59,7 @@
                     ${dynamicForm.attractionNames[0]}
             </td>
             <td>
-                <form:input path="tickets[0]" onchange="validateNumber()"/>
+                <form:input path="tickets[0]" id="number"/>
             </td>
         </tr>
         <tr>
@@ -61,7 +67,7 @@
                     ${dynamicForm.attractionNames[1]}
             </td>
             <td>
-                <form:input path="tickets[1]" onchange="validateNumber()"/>
+                <form:input path="tickets[1]" id="number"/>
             </td>
         </tr>
         <tr>
@@ -69,7 +75,7 @@
                     ${dynamicForm.attractionNames[2]}
             </td>
             <td>
-                <form:input path="tickets[2]" onchange="validateNumber()"/>
+                <form:input path="tickets[2]" id="number"/>
             </td>
         </tr>
         <tr>
@@ -77,7 +83,7 @@
                     ${dynamicForm.attractionNames[3]}
             </td>
             <td>
-                <form:input path="tickets[3]" onchange="validateNumber()"/>
+                <form:input path="tickets[3]" id="number"/>
             </td>
         </tr>
         <tr>
@@ -85,7 +91,7 @@
                     ${dynamicForm.attractionNames[4]}
             </td>
             <td>
-                <form:input path="tickets[4]" onchange="validateNumber()"/>
+                <form:input path="tickets[4]" id="number"/>
             </td>
         </tr>
         <tr>
@@ -93,7 +99,7 @@
                     ${dynamicForm.attractionNames[5]}
             </td>
             <td>
-                <form:input path="tickets[5]" onchange="validateNumber()"/>
+                <form:input path="tickets[5]" id="number"/>
             </td>
         </tr>
         <tr>

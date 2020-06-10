@@ -56,31 +56,34 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     }
 
     @Override
+    public void deleteAttraction(String attractionId) {
+        // get the current hibernate session
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // delete object with primary key
+        Query theQuery =
+                currentSession.createQuery("delete from Attraction where idAttraction=:idAttraction");
+        theQuery.setParameter("idAttraction", attractionId);
+
+        theQuery.executeUpdate();
+    }
+
+    @Override
     public List<Object> makeTicket(DynamicForm dynamicForm) {
         Session currentSession = sessionFactory.getCurrentSession();
 
-        //get last customer id
-        Query<String> lastIdCustomerQuery = currentSession.createQuery("select idCustomer" +
-                " from Customer ORDER BY idCustomer DESC");
-        lastIdCustomerQuery.setMaxResults(1);
-        int intIdCustomer = Integer.parseInt(lastIdCustomerQuery.getSingleResult().substring(1));
-        String lastIdCustomer = "C" + (intIdCustomer + 1);
-
+        //last customer id
+        String lastIdCustomer = getTheLastCustomerId(currentSession);
         //get current date
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-
         //new customer
         Customer customer = new Customer(lastIdCustomer, dtf.format(now));
         customer.setEmail(dynamicForm.getEmail());
 
+
         //existing ticket terminal
-        String ticketTerminalId = "TT1";
-        Query<TicketTerminal> ticketTerminalQuery = currentSession
-                .createQuery("from TicketTerminal where idTicketTerminal = :ticketTerminalId",
-                        TicketTerminal.class);
-        ticketTerminalQuery.setParameter("ticketTerminalId", ticketTerminalId);
-        TicketTerminal ticketTerminal = ticketTerminalQuery.getSingleResult();
+        TicketTerminal ticketTerminal = readTicketTerminalById("TT1", currentSession);
 
         //attractions for request
         Map<Attraction, Integer> attractions = new HashMap<>();
@@ -96,49 +99,26 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         }
 
         //get cost of all attractions
-        int totalCost = 0;
-        for (Map.Entry<Attraction, Integer> pair : attractions.entrySet()) {
-            totalCost += pair.getKey().getPriceOfAttraction() * pair.getValue();
-        }
-
+        int totalCost = getTotalCostOfAttractions(attractions);
 
         //get last ticket id
-        Query<String> lastTicketIdQuery = currentSession.createQuery("select idTicket" +
-                " from Ticket ORDER BY idTicket DESC");
-        lastTicketIdQuery.setMaxResults(1);
-        int intIdTicket = Integer.parseInt(lastTicketIdQuery.getSingleResult().substring(1));
-        String lastIdTicket = "T" + (intIdTicket + 1);
+        String lastIdTicket = getTheLastTicketId(currentSession);
 
         //new ticket
-        //get current date
-        DateTimeFormatter dtfDay = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        LocalDateTime nowDay = LocalDateTime.now();
 
-        DateTimeFormatter dtfTime = DateTimeFormatter.ofPattern("HH:mm:ss");
-        LocalDateTime nowTime = LocalDateTime.now();
-        Ticket ticket = new Ticket(lastIdTicket, totalCost, dtfDay.format(nowDay), dtfTime.format(nowTime), UUID.randomUUID().toString());
+        Ticket ticket = new Ticket(lastIdTicket, totalCost, dtf.format(now), UUID.randomUUID().toString());
 
         //get administrator id = A2
-        String administratorID = "A2";
-        Query<Administrator> administratorQuery = currentSession
-                .createQuery("from Administrator where idAdministrator = :administratorID",
-                        Administrator.class);
-        administratorQuery.setParameter("administratorID", administratorID);
-        Administrator administrator = administratorQuery.getSingleResult();
-        //System.out.println("------------------------------------------------------------------------------------------------");
+        Administrator administrator = readAdminById("A1", currentSession);
 
         //Get TechSupportTeam with id = TST1
-        String techSupportTeamID = "TST1";
-        Query<TechSupportTeam> techSupportTeamQuery = currentSession
-                .createQuery("from TechSupportTeam where idTeam = :techSupportTeamID",
-                        TechSupportTeam.class);
-        techSupportTeamQuery.setParameter("techSupportTeamID", techSupportTeamID);
-        TechSupportTeam techSupportTeam = techSupportTeamQuery.getSingleResult();
+        TechSupportTeam techSupportTeam = readTechSuppTeamById("TST1", currentSession);
 
 
         customer.addTicket(ticket);
         ticketTerminal.addTicket(ticket);
 
+        //add all selected attractions
         for (Map.Entry<Attraction, Integer> pair : attractions.entrySet()) {
             for (int i = 0; i < pair.getValue(); i++) {
                 administrator.addAttraction(pair.getKey());
@@ -147,11 +127,14 @@ public class AttractionsDAOImpl implements AttractionsDAO {
             }
         }
 
+        //save
         currentSession.save(customer);
         currentSession.save(ticket);
 
         //dynamicForm.getTickets(): FerrisWheel, Trampoline, Giraffe Flying Chair, Viking pirate ship,
         // Kids Pirate Ship Rides, Roller Coaster
+
+
         List<Object> objects = new ArrayList<>();
         objects.add(ticket);
         objects.add(attractions);
@@ -159,28 +142,54 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     }
 
 
-    @Override
-    public Attraction createTicketRow() {
-        return new Attraction();
+
+    public TicketTerminal readTicketTerminalById(String ticketTerminalId, Session currentSession) {
+        Query<TicketTerminal> ticketTerminalQuery = currentSession
+                .createQuery("from TicketTerminal where idTicketTerminal = :ticketTerminalId",
+                        TicketTerminal.class);
+        ticketTerminalQuery.setParameter("ticketTerminalId", ticketTerminalId);
+        return ticketTerminalQuery.getSingleResult();
     }
 
-    @Override
-    public Ticket createTicket() {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Customer customer = new Customer("C1", "14-06-2020");
-        TicketTerminal ticketTerminal = new TicketTerminal("TT3", "card");
-
-        Ticket ticket = new Ticket("T1", 20, "14-06-2020", "10:00", UUID.randomUUID().toString());
-
-        ticket.setTicketTerminal(ticketTerminal);
-        ticket.setCustomer(customer);
-
-        currentSession.save(ticketTerminal);
-        currentSession.save(customer);
-        currentSession.save(ticket);
-
-        return ticket;
+    public Administrator readAdminById(String administratorID, Session currentSession) {
+        Query<Administrator> administratorQuery = currentSession
+                .createQuery("from Administrator where idAdministrator = :administratorID",
+                        Administrator.class);
+        administratorQuery.setParameter("administratorID", administratorID);
+        return administratorQuery.getSingleResult();
     }
 
+    public TechSupportTeam readTechSuppTeamById(String techSupportTeamID, Session currentSession) {
+        Query<TechSupportTeam> techSupportTeamQuery = currentSession
+                .createQuery("from TechSupportTeam where idTeam = :techSupportTeamID",
+                        TechSupportTeam.class);
+        techSupportTeamQuery.setParameter("techSupportTeamID", techSupportTeamID);
+        return techSupportTeamQuery.getSingleResult();
+    }
 
+    public String getTheLastCustomerId(Session currentSession) {
+        //get last customer id
+        Query<String> lastIdCustomerQuery = currentSession.createQuery("select idCustomer" +
+                " from Customer ORDER BY date DESC");
+        lastIdCustomerQuery.setMaxResults(1);
+        int intIdCustomer = Integer.parseInt(lastIdCustomerQuery.getSingleResult().substring(1));
+        return  "C" + (intIdCustomer + 1);
+    }
+
+    public String getTheLastTicketId(Session currentSession) {
+        //get last ticket id
+        Query<String> lastTicketIdQuery = currentSession.createQuery("select idTicket" +
+                " from Ticket ORDER BY dateOfIssuance DESC");
+        lastTicketIdQuery.setMaxResults(1);
+        int intIdTicket = Integer.parseInt(lastTicketIdQuery.getSingleResult().substring(1));
+        return "T" + (intIdTicket + 1);
+    }
+
+    public int getTotalCostOfAttractions(Map<Attraction, Integer> attractions) {
+        int totalCost = 0;
+        for (Map.Entry<Attraction, Integer> pair : attractions.entrySet()) {
+            totalCost += pair.getKey().getPriceOfAttraction() * pair.getValue();
+        }
+        return totalCost;
+    }
 }
