@@ -65,10 +65,11 @@ public class AdminController {
         return "admin/attractions-page";
     }
 
-    @PostMapping("/admin-page/deleteAttractionPost")
+    @GetMapping("/admin-page/deleteAttractionPost")
     public String deleteCustomer(@RequestParam("attractionId") String attractionId, Model model) {
         // delete the customer
         //attractionsService.deleteAttraction(attractionId);
+
         List<Attraction> attractions = attractionsService.getAttractions();
         model.addAttribute("attractions", attractions);
         return "admin/attractions-page";
