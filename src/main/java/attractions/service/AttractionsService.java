@@ -1,9 +1,7 @@
 package attractions.service;
 
-import attractions.entity.Attraction;
-import attractions.entity.Customer;
-import attractions.entity.DynamicForm;
-import attractions.entity.Ticket;
+import attractions.entity.*;
+import org.hibernate.Session;
 
 import java.util.List;
 
@@ -21,4 +19,7 @@ public interface AttractionsService {
     List<Object> makeTicket(DynamicForm dynamicForm);
 
     void deleteAttraction(String attractionId);
+
+    void createAttraction(Attraction attraction, String idTST, String idAdmin);
+
 }

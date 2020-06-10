@@ -69,6 +69,19 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     }
 
     @Override
+    public void createAttraction(Attraction attraction, String idTST, String idAdmin) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        TechSupportTeam techSupportTeam = readTechSuppTeamById(idTST, currentSession);
+        Administrator administrator  = readAdminById(idAdmin, currentSession);
+
+        techSupportTeam.addAttraction(attraction);
+        administrator.addAttraction(attraction);
+
+        currentSession.saveOrUpdate(attraction);
+    }
+
+    @Override
     public List<Object> makeTicket(DynamicForm dynamicForm) {
         Session currentSession = sessionFactory.getCurrentSession();
 
@@ -151,6 +164,10 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         return ticketTerminalQuery.getSingleResult();
     }
 
+
+
+
+
     public Administrator readAdminById(String administratorID, Session currentSession) {
         Query<Administrator> administratorQuery = currentSession
                 .createQuery("from Administrator where idAdministrator = :administratorID",
@@ -173,7 +190,7 @@ public class AttractionsDAOImpl implements AttractionsDAO {
                 " from Customer ORDER BY date DESC");
         lastIdCustomerQuery.setMaxResults(1);
         int intIdCustomer = Integer.parseInt(lastIdCustomerQuery.getSingleResult().substring(1));
-        return  "C" + (intIdCustomer + 1);
+        return "C" + (intIdCustomer + 1);
     }
 
     public String getTheLastTicketId(Session currentSession) {

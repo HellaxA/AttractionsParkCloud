@@ -13,12 +13,9 @@
     <title>CRUD</title>
 </head>
 <body>
-    <c:url var="validme" value="/admin-login/admin-page/attractions" >
-        <c:param name="password" value="${passwordValidator.password}"/>
+    <c:url var="attractionsCRUD" value="/admin-login/admin-page/attractions" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
     </c:url>
-
-    <a href="${validme}" >Show attractions</a>
-
-
+    <a href="${attractionsCRUD}" >Attractions</a>
 </body>
 </html>

@@ -1,10 +1,7 @@
 package attractions.service;
 
 import attractions.dao.AttractionsDAO;
-import attractions.entity.Attraction;
-import attractions.entity.Customer;
-import attractions.entity.DynamicForm;
-import attractions.entity.Ticket;
+import attractions.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +49,13 @@ public class AttractionsServiceImpl implements AttractionsService{
     public void deleteAttraction(String attractionId) {
         attractionsDAO.deleteAttraction(attractionId);
     }
+
+    @Override
+    @Transactional
+    public void createAttraction(Attraction attraction, String idTST, String idAdmin) {
+        attractionsDAO.createAttraction(attraction, idTST, idAdmin);
+    }
+
 
     @Override
     @Transactional

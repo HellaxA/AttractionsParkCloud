@@ -26,7 +26,7 @@
     <c:forEach var="attraction" items="${attractions}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteAttraction">
             <c:param name="attractionId" value="${attraction.idAttraction}"/>
-            <c:param name="password" value="${password}"/>
+            <c:param name="passwordValidator" value="${passwordValidator.password}" />
         </c:url>
         <tr>
             <td>${attraction.idAttraction}</td>
@@ -42,6 +42,14 @@
             </td>
         </tr>
     </c:forEach>
+    <tr>
+        <td>
+            <c:url var="addLink" value="/admin-login/admin-page/addNewAttraction" >
+                <c:param name="passwordValidator" value="${passwordValidator.password}" />
+            </c:url>
+            <a href="${addLink}">Add attraction</a>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

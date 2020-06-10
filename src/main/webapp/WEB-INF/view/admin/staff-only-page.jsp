@@ -7,7 +7,7 @@
 </head>
 <body>
     <form:form action="admin-page" modelAttribute="passwordValidator">
-        Password: <form:password path="password"/>
+        Password: <form:password path="password" />
         <input type="submit" value="Login">
     </form:form>
 </body>
