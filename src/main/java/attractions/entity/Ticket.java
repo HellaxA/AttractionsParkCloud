@@ -23,13 +23,13 @@ public class Ticket {
 
     @ManyToOne(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.REFRESH, CascadeType.MERGE})
+                    CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_customer")
     private Customer customer;
 
     @ManyToOne(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.REFRESH, CascadeType.MERGE})
+                    CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_ticket_terminal")
     private TicketTerminal ticketTerminal;
 

@@ -23,13 +23,13 @@ public class Attraction {
 
     @ManyToOne(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.REFRESH, CascadeType.MERGE})
+                    CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_administrator")
     private Administrator administrator;
 
     @ManyToOne(fetch=FetchType.EAGER,
             cascade = {CascadeType.PERSIST, CascadeType.DETACH,
-            CascadeType.REFRESH, CascadeType.MERGE})
+                    CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "ID_support_team")
     private TechSupportTeam techSupportTeam;
 

@@ -1,6 +1,7 @@
 package attractions.controller;
 
 import attractions.entity.*;
+import attractions.hash.HashString;
 import attractions.service.AttractionsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,11 @@ public class AdminController {
     @PostMapping("/admin-page")
     public String showCRUDPage(@ModelAttribute("passwordValidator")
                                        PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+
+
+
+
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         model.addAttribute("passwordValidator", passwordValidator);
@@ -38,7 +43,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/attractions")
     public String attractionsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<Attraction> attractions = attractionsService.getAttractions();
@@ -50,7 +55,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteAttraction")
     public String deleteAttraction(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                  @RequestParam("attractionId") String attractionId, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -66,7 +71,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewAttraction")
     public String addAttraction(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Attraction attraction = new Attraction();
@@ -78,7 +83,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveAttraction")
     public String saveAttraction(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Attraction attraction = new Attraction(
@@ -97,7 +102,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateAttraction")
     public String updateAttraction(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("attractionName") String attractionName, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -111,7 +116,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/administrators")
     public String administratorsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<Administrator> administrators = attractionsService.getAdministrators();
@@ -123,7 +128,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewAdmin")
     public String addAdmin(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Administrator administrator = new Administrator();
@@ -135,7 +140,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveAdministrator")
     public String saveAdministrator(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Administrator administrator = new Administrator(
@@ -156,7 +161,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateAdministrator")
     public String formUpdateAdministrator(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idAdministrator") String idAdministrator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -170,7 +175,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteAdministrator")
     public String deleteAdministrator(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                  @RequestParam("idAdministrator") String idAdministrator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -186,7 +191,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/ticketTerminals")
     public String ticketTerminalsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<TicketTerminal> ticketTerminals = attractionsService.getTicketTerminals();
@@ -197,7 +202,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewTicketTerminal")
     public String addTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         TicketTerminal ticketTerminal = new TicketTerminal();
@@ -209,7 +214,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveTicketTerminal")
     public String saveTicketTerminal(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         TicketTerminal ticketTerminal = new TicketTerminal(
@@ -225,7 +230,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateTicketTerminal")
     public String updateTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idTicketTerminal") String idTicketTerminal, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -239,7 +244,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteTicketTerminal")
     public String deleteTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idTicketTerminal") String idTicketTerminal, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -255,7 +260,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/customers")
     public String customersCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<Customer> customers = attractionsService.getCustomers();
@@ -266,7 +271,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewCustomer")
     public String addCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Customer customer = new Customer();
@@ -279,7 +284,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveCustomer")
     public String saveCustomer(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Customer customer = new Customer(
@@ -296,7 +301,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateCustomer")
     public String updateCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idCustomer") String idCustomer, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -311,7 +316,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteCustomer")
     public String deleteCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idCustomer") String idCustomer, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -326,7 +331,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/techSupportTeams")
     public String techSupportTeamsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<TechSupportTeam> techSupportTeams = attractionsService.getTechSupportTeams();
@@ -337,7 +342,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewTechSupportTeam")
     public String addTechSupportTeam(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         TechSupportTeam techSupportTeam = new TechSupportTeam();
@@ -350,7 +355,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveTechSupportTeam")
     public String saveTechSupportTeam(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         TechSupportTeam techSupportTeam = new TechSupportTeam(
@@ -365,7 +370,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateTechSupportTeam")
     public String updateTechSupportTeam(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                  @RequestParam("idTeam") String idTeam, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -379,7 +384,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteTechSupportTeam")
     public String deleteTechSupportTeam(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                  @RequestParam("idTeam") String idTeam, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -394,7 +399,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/tickets")
     public String ticketsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         List<Ticket> tickets = attractionsService.getTickets();
@@ -405,7 +410,7 @@ public class AdminController {
 
     @GetMapping("/admin-page/addNewTicket")
     public String addTicket(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Ticket ticket = new Ticket();
@@ -418,12 +423,12 @@ public class AdminController {
 
     @GetMapping("/admin-page/saveTicket")
     public String saveTicket(HttpServletResponse response, HttpServletRequest request, Model model) {
-        if(!request.getParameter("passwordValidator").equals("1")) {
+        if(!HashString.hashIt(request.getParameter("passwordValidator")).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
         Ticket ticket = new Ticket(
                 request.getParameter("idTicket"), Integer.parseInt(request.getParameter("ticketPrice")),
-                request.getParameter("dateOfIssuance"), request.getParameter("accessKey"));
+                request.getParameter("dateOfIssuance"), HashString.hashIt(request.getParameter("accessKey")));
 
         attractionsService.createTicket(ticket,
                 request.getParameter("idTicketTerminal"),
@@ -436,7 +441,7 @@ public class AdminController {
     @GetMapping("/admin-page/formUpdateTicket")
     public String formUpdateTicket(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                           @RequestParam("idTicket") String idTicket, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 
@@ -450,7 +455,7 @@ public class AdminController {
     @GetMapping("/admin-page/deleteTicket")
     public String deleteTicket(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
                                    @RequestParam("idTicket") String idTicket, Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
+        if(!HashString.hashIt(passwordValidator.getPassword()).equals(attractionsService.getPassword())) {
             return "admin/staff-only-page";
         }
 

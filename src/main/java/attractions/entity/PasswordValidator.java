@@ -1,5 +1,7 @@
 package attractions.entity;
 
+import attractions.hash.HashString;
+
 public class PasswordValidator {
     private String password;
 

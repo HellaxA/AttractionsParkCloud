@@ -57,4 +57,6 @@ public interface AttractionsService {
     Ticket getTicket(String idTicket);
 
     void deleteTicket(String idTicket);
+
+    String getPassword();
 }

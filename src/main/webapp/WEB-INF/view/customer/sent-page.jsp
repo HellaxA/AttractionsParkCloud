@@ -53,6 +53,13 @@
     <tr>
         Do not show this key to anybody! Save it, so that you can visit our attractions!
     </tr>
+    <tr>
+        <td>
+            <p>
+                <a href="${pageContext.request.contextPath}/home">Back to home</a>
+            </p>
+        </td>
+    </tr>
 </table>
 </body>
 </html>

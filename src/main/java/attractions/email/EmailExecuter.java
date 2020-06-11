@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EmailExecuter {
-    public void sendEmail(String email, String key, HashMap<Attraction, Integer> attractions, Ticket ticket){
+    public void sendEmail(String email, HashMap<Attraction, Integer> attractions, Ticket ticket){
         SendEmail.SMTP_SERVER = "smtp.gmail.com";
         SendEmail.SMTP_Port = "465";
         SendEmail.EMAIL_FROM = "AttractionsProject@gmail.com";
@@ -25,11 +25,10 @@ public class EmailExecuter {
         }
         StringBuilder result = new StringBuilder();
         result.append("Do not show this key to anybody! Save it, so that you can visit our attractions!\n");
-        result.append("Name of attraction\n");
         result.append(attractionTimes);
         result.append("Total price:\t");
         result.append(ticket.getTicketPrice() + "$\n");
-        result.append("Date and time buy:");
+        result.append("Date and time buy:\t");
         result.append(ticket.getDateOfIssuance() + "\n");
         result.append("Ticket unique key:\t");
         result.append(ticket.getAccessKey());

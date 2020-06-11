@@ -57,4 +57,6 @@ public interface AttractionsDAO {
     Ticket getTicket(String idTicket);
 
     void deleteTicket(String idTicket);
+
+    String getPassword();
 }

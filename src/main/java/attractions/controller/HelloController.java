@@ -49,16 +49,19 @@ public class HelloController {
         Ticket ticket = (Ticket)objects.get(0);
         HashMap<Attraction, Integer> attractions = (HashMap)objects.get(1);
 
-
         String email = dynamicForm.getEmail();
-        String key = ticket.getAccessKey();//ticket UNIQUE key
-        new EmailExecuter().sendEmail(email, key, attractions, ticket);
+        String key = (String)objects.get(2);;//ticket UNIQUE key
+        ticket.setAccessKey(key);
+        new EmailExecuter().sendEmail(email, attractions, ticket);
 
         model.addAttribute("email", email);
         model.addAttribute("ticket", ticket);
         model.addAttribute("attractions", attractions);
         return "customer/sent-page";
     }
+
+
+
 
 
 }

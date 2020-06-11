@@ -21,7 +21,6 @@
         <td>Surname</td>
         <td>Middle_name</td>
         <td>Position</td>
-        <td>Password</td>
     </tr>
     <c:forEach var="admin" items="${administrators}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteAdministrator">
@@ -40,7 +39,6 @@
             <td>${admin.surname}</td>
             <td>${admin.middleName}</td>
             <td>${admin.position}</td>
-            <td>${admin.password}</td>
             <td>
                 <a href="${updateLink}">Update</a>
                 |

@@ -164,6 +164,12 @@ public class AttractionsServiceImpl implements AttractionsService{
         attractionsDAO.deleteTicket(idTicket);
     }
 
+    @Override
+    @Transactional
+    public String getPassword() {
+        return attractionsDAO.getPassword();
+    }
+
 
     @Override
     @Transactional

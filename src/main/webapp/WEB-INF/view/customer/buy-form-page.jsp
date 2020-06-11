@@ -61,6 +61,7 @@
             <td>
                 <form:input path="tickets[0]" id="number"/>
             </td>
+            <td><a href="" >Details</td>
         </tr>
         <tr>
             <td>

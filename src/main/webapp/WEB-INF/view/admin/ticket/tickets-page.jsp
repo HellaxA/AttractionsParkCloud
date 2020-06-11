@@ -19,7 +19,6 @@
         <td>Date_of_issuance</td>
         <td>ID_customer</td>
         <td>ID_ticket_terminal</td>
-        <td>Access_Key</td>
     </tr>
     <c:forEach var="ticket" items="${tickets}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteTicket">
@@ -36,7 +35,6 @@
             <td>${ticket.dateOfIssuance}</td>
             <td>${ticket.customer.idCustomer}</td>
             <td>${ticket.ticketTerminal.idTicketTerminal}</td>
-            <td>${ticket.accessKey}</td>
             <td>
                 <a href="${updateLink}">Update</a>
                 |

@@ -1,6 +1,7 @@
 package attractions.dao;
 
 import attractions.entity.*;
+import attractions.hash.HashString;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -122,7 +123,9 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         //new ticket
 
         Ticket ticket = new Ticket(lastIdTicket, totalCost, dtf.format(now), UUID.randomUUID().toString());
-
+        String originalKey = ticket.getAccessKey();
+        System.out.println(originalKey);
+        ticket.setAccessKey(HashString.hashIt(ticket.getAccessKey()));
         //get administrator id = A2
         Administrator administrator = readAdminById("A1", currentSession);
 
@@ -146,13 +149,11 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         currentSession.save(customer);
         currentSession.save(ticket);
 
-        //dynamicForm.getTickets(): FerrisWheel, Trampoline, Giraffe Flying Chair, Viking pirate ship,
-        // Kids Pirate Ship Rides, Roller Coaster
-
-
         List<Object> objects = new ArrayList<>();
         objects.add(ticket);
         objects.add(attractions);
+        objects.add(originalKey);
+
         return objects;
     }
 
@@ -218,7 +219,9 @@ public class AttractionsDAOImpl implements AttractionsDAO {
     @Override
     public void createAdministrator(Administrator administrator) {
         Session currentSession = sessionFactory.getCurrentSession();
-
+        //hash 2 times
+        String password = HashString.hashString(administrator.getPassword());
+        administrator.setPassword(HashString.hashString(password));
         currentSession.clear();
         currentSession.saveOrUpdate(administrator);
     }
@@ -381,6 +384,18 @@ public class AttractionsDAOImpl implements AttractionsDAO {
         theQuery.setParameter("idTicket", idTicket);
 
         theQuery.executeUpdate();
+    }
+
+    @Override
+    public String getPassword() {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // delete object with primary key
+        Query theQuery =
+                currentSession.createQuery("select password from Administrator where idAdministrator=:idAdministrator"
+                        , String.class);
+        theQuery.setParameter("idAdministrator", "A4");
+        return (String) theQuery.getSingleResult();
     }
 
     private Customer readCustomerById(String idCustomer, Session currentSession) {
