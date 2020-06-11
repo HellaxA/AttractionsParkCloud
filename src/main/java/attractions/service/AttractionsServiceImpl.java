@@ -122,6 +122,48 @@ public class AttractionsServiceImpl implements AttractionsService{
         attractionsDAO.deleteCustomer(idCustomer);
     }
 
+    @Override
+    @Transactional
+    public List<TechSupportTeam> getTechSupportTeams() {
+        return attractionsDAO.getTechSupportTeams();
+    }
+
+    @Override
+    @Transactional
+    public void createTechSupportTeam(TechSupportTeam techSupportTeam) {
+        attractionsDAO.createTechSupportTeam(techSupportTeam);
+    }
+
+    @Override
+    @Transactional
+    public TechSupportTeam getTechSupportTeam(String idTeam) {
+        return attractionsDAO.getTechSupportTeam(idTeam);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTechSupportTeam(String idTeam) {
+        attractionsDAO.deleteTechSupportTeam(idTeam);
+    }
+
+    @Override
+    @Transactional
+    public void createTicket(Ticket ticket, String idTicketTerminal, String idCustomer) {
+        attractionsDAO.createTicket(ticket, idTicketTerminal, idCustomer);
+    }
+
+    @Override
+    @Transactional
+    public Ticket getTicket(String idTicket) {
+        return attractionsDAO.getTicket(idTicket);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTicket(String idTicket) {
+        attractionsDAO.deleteTicket(idTicket);
+    }
+
 
     @Override
     @Transactional

@@ -43,4 +43,18 @@ public interface AttractionsService {
     Customer getCustomer(String idCustomer);
 
     void deleteCustomer(String idCustomer);
+
+    List<TechSupportTeam> getTechSupportTeams();
+
+    void createTechSupportTeam(TechSupportTeam techSupportTeam);
+
+    TechSupportTeam getTechSupportTeam(String idTeam);
+
+    void deleteTechSupportTeam(String idTeam);
+
+    void createTicket(Ticket ticket, String idTicketTerminal, String idCustomer);
+
+    Ticket getTicket(String idTicket);
+
+    void deleteTicket(String idTicket);
 }

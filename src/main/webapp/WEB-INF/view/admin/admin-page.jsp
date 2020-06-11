@@ -34,5 +34,15 @@
     </c:url>
     <a href="${customerCRUD}" >Customers</a>
 
+    <c:url var="techSupportTeamCRUD" value="/admin-login/admin-page/techSupportTeams" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
+    </c:url>
+    <a href="${techSupportTeamCRUD}" >Tech Support Teams</a>
+
+    <c:url var="ticketCRUD" value="/admin-login/admin-page/tickets" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
+    </c:url>
+    <a href="${ticketCRUD}" >Tickets</a>
+
 </body>
 </html>

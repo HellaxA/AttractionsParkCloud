@@ -80,9 +80,11 @@
                 </label>
             </td>
         </tr>
-
-
-        <input type="submit" value="Submit">
+        <tr>
+            <td>
+                <input type="submit" value="Submit">
+            </td>
+        </tr>
     </table>
 
 </form>

@@ -312,5 +312,84 @@ public class AttractionsDAOImpl implements AttractionsDAO {
 
     }
 
+    @Override
+    public List<TechSupportTeam> getTechSupportTeams() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<TechSupportTeam> theQuery = currentSession.createQuery("from TechSupportTeam", TechSupportTeam.class);
+        return theQuery.getResultList();
+    }
+
+    @Override
+    public void createTechSupportTeam(TechSupportTeam techSupportTeam) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.clear();
+        currentSession.saveOrUpdate(techSupportTeam);
+    }
+
+    @Override
+    public TechSupportTeam getTechSupportTeam(String idTeam) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<TechSupportTeam> theQuery = currentSession.createQuery
+                ("from TechSupportTeam where idTeam = :idTeam", TechSupportTeam.class);
+        theQuery.setParameter("idTeam", idTeam);
+        return theQuery.getSingleResult();
+    }
+
+    @Override
+    public void deleteTechSupportTeam(String idTeam) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // delete object with primary key
+        Query theQuery =
+                currentSession.createQuery("delete from TechSupportTeam where idTeam=:idTeam");
+        theQuery.setParameter("idTeam", idTeam);
+
+        theQuery.executeUpdate();
+    }
+
+    @Override
+    public void createTicket(Ticket ticket, String idTicketTerminal, String idCustomer) {
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        TicketTerminal ticketTerminal = readTicketTerminalById(idTicketTerminal, currentSession);
+        Customer customer = readCustomerById(idCustomer, currentSession);
+
+        ticketTerminal.addTicket(ticket);
+        customer.addTicket(ticket);
+
+
+        currentSession.clear();
+        currentSession.saveOrUpdate(ticket);
+    }
+
+    @Override
+    public Ticket getTicket(String idTicket) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Ticket> theQuery = currentSession.createQuery("from Ticket where idTicket = :idTicket", Ticket.class);
+        theQuery.setParameter("idTicket", idTicket);
+        return theQuery.getSingleResult();
+    }
+
+    @Override
+    public void deleteTicket(String idTicket) {
+        // get the current hibernate session
+        Session currentSession = sessionFactory.getCurrentSession();
+
+        // delete object with primary key
+        Query theQuery =
+                currentSession.createQuery("delete from Ticket where idTicket=:idTicket");
+        theQuery.setParameter("idTicket", idTicket);
+
+        theQuery.executeUpdate();
+    }
+
+    private Customer readCustomerById(String idCustomer, Session currentSession) {
+        Query<Customer> ticketTerminalQuery = currentSession
+                .createQuery("from Customer where idCustomer = :idCustomer",
+                        Customer.class);
+        ticketTerminalQuery.setParameter("idCustomer", idCustomer);
+        return ticketTerminalQuery.getSingleResult();
+    }
+
 
 }
