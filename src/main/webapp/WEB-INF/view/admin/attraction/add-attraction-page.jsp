@@ -22,7 +22,7 @@
             </td>
             <td>
                 <label>
-                    <input name="ID_attraction"/>
+                    <input name="ID_attraction" value="${attraction.idAttraction}"/>
                 </label>
             </td>
         </tr>
@@ -30,7 +30,7 @@
             <td>Age Category</td>
             <td>
                 <label>
-                    <input name="age_category"/>
+                    <input name="age_category" value="${attraction.ageCategory}"/>
                 </label>
             </td>
         </tr>
@@ -38,7 +38,7 @@
             <td>Duration</td>
             <td>
                 <label>
-                    <input name="duration"/>
+                    <input name="duration" value="${attraction.duration}"/>
                 </label>
             </td>
         </tr>
@@ -46,7 +46,7 @@
             <td>Height</td>
             <td>
                 <label>
-                    <input name="height"/>
+                    <input name="height" value="${attraction.height}"/>
                 </label>
             </td>
         </tr>
@@ -54,7 +54,7 @@
             <td>ID_administrator</td>
             <td>
                 <label>
-                    <input name="ID_administrator"/>
+                    <input name="ID_administrator" value="${attraction.administrator.idAdministrator}"/>
                 </label>
             </td>
         </tr>
@@ -62,7 +62,7 @@
             <td>ID_support_team</td>
             <td>
                 <label>
-                    <input name="ID_support_team"/>
+                    <input name="ID_support_team" value="${attraction.techSupportTeam.idTeam}"/>
                 </label>
             </td>
         </tr>
@@ -70,7 +70,7 @@
             <td>Name_of_attraction</td>
             <td>
                 <label>
-                    <input name="nameOfAttraction"/>
+                    <input name="nameOfAttraction" value="${attraction.nameOfAttraction}"/>
                 </label>
             </td>
         </tr>
@@ -78,13 +78,17 @@
             <td>Price_of_attraction</td>
             <td>
                 <label>
-                    <input name="priceOfAttraction"/>
+                    <input name="priceOfAttraction" value="${attraction.priceOfAttraction}"/>
                 </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit" value="Submit">
             </td>
         </tr>
 
 
-        <input type="submit" value="Submit">
     </table>
 
 </form>

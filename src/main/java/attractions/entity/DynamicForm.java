@@ -13,15 +13,15 @@ public class DynamicForm {
     private String[] attractionNames;
 
     public DynamicForm() {
-        attractionNames = new String[]{"FerrisWheel", "Trampouline", "Giraffe Flying Chair",
-                "Viking pirate ship", "Kids Pirate Ship Rides", "Roller Coaster"};
+        attractionNames = new String[]{"Ferris Wheel", "Attractive Scenic Track Train", "Carousel",
+                "Viking pirate ship", "Go Carts", "Trampoline"};
     }
     // FerrisWheel, Trampoline, Giraffe Flying Chair, Viking pirate ship,
     // Kids Pirate Ship Rides, Roller Coaster
     public DynamicForm(Long amountOfAttractions) {
         tickets = new int[(int)(long)amountOfAttractions];
-        attractionNames = new String[]{"FerrisWheel", "Trampoline", "Giraffe Flying Chair",
-                "Viking pirate ship", "Kids Pirate Ship Rides", "Roller Coaster"};
+        attractionNames = new String[]{"Ferris Wheel", "Attractive Scenic Track Train", "Carousel",
+                "Viking pirate ship", "Go Carts", "Trampoline"};
     }
 
     public String[] getAttractionNames() {

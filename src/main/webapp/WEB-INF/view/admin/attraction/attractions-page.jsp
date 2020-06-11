@@ -28,6 +28,10 @@
             <c:param name="attractionId" value="${attraction.idAttraction}"/>
             <c:param name="passwordValidator" value="${passwordValidator.password}" />
         </c:url>
+        <c:url var="updateLink" value="/admin-login/admin-page/formUpdateAttraction">
+            <c:param name="passwordValidator" value="${passwordValidator.password}" />
+            <c:param name="attractionName" value="${attraction.nameOfAttraction}"/>
+        </c:url>
         <tr>
             <td>${attraction.idAttraction}</td>
             <td>${attraction.ageCategory}</td>
@@ -38,7 +42,10 @@
             <td>${attraction.nameOfAttraction}</td>
             <td>${attraction.priceOfAttraction}</td>
             <td>
-                <a href="${deleteLink}"> Delete</a>
+                <a href="${updateLink}">Update</a>
+                |
+                <a href="${deleteLink}"
+                onclick="if (!(confirm('Are you sure you want to delete this attraction?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
@@ -48,6 +55,20 @@
                 <c:param name="passwordValidator" value="${passwordValidator.password}" />
             </c:url>
             <a href="${addLink}">Add attraction</a>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
+            </p>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>
+                <a href="${pageContext.request.contextPath}/home">Back to home</a>
+            </p>
         </td>
     </tr>
 </table>

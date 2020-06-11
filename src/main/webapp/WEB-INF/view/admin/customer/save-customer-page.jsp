@@ -3,18 +3,18 @@
   Created by IntelliJ IDEA.
   User: 38095
   Date: 6/11/2020
-  Time: 2:41 AM
+  Time: 5:53 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Delete Attraction</title>
+    <title>Save Customer</title>
 </head>
 <body>
-<c:url var="attractionsCRUD" value="/admin-login/admin-page/attractions" >
+<c:url var="customerCRUD" value="/admin-login/admin-page/customers" >
     <c:param name="passwordValidator" value="${passwordValidator.password}" />
 </c:url>
-<a href="${attractionsCRUD}" >Attractions</a>
+<a href="${customerCRUD}" >Customers</a>
 </body>
 </html>

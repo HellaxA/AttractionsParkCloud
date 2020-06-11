@@ -17,5 +17,22 @@
         <c:param name="passwordValidator" value="${passwordValidator.password}" />
     </c:url>
     <a href="${attractionsCRUD}" >Attractions</a>
+
+    <c:url var="administratorCRUD" value="/admin-login/admin-page/administrators" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
+    </c:url>
+    <a href="${administratorCRUD}" >Administrators</a>
+
+
+    <c:url var="ticketTerminalCRUD" value="/admin-login/admin-page/ticketTerminals" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
+    </c:url>
+    <a href="${ticketTerminalCRUD}" >Ticket Terminals</a>
+
+    <c:url var="customerCRUD" value="/admin-login/admin-page/customers" >
+        <c:param name="passwordValidator" value="${passwordValidator.password}" />
+    </c:url>
+    <a href="${customerCRUD}" >Customers</a>
+
 </body>
 </html>

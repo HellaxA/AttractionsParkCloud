@@ -56,6 +56,72 @@ public class AttractionsServiceImpl implements AttractionsService{
         attractionsDAO.createAttraction(attraction, idTST, idAdmin);
     }
 
+    @Override
+    @Transactional
+    public List<Administrator> getAdministrators() {
+        return attractionsDAO.getAdministrators();
+    }
+
+    @Override
+    @Transactional
+    public void createAdministrator(Administrator administrator) {
+        attractionsDAO.createAdministrator(administrator);
+    }
+
+    @Override
+    @Transactional
+    public Administrator getAdministrator(String idAdministrator) {
+        return attractionsDAO.getAdministrator(idAdministrator);
+    }
+
+    @Override
+    @Transactional
+    public void deleteAdministrator(String idAdministrator) {
+        attractionsDAO.deleteAdministrator(idAdministrator);
+    }
+
+    @Override
+    @Transactional
+    public List<TicketTerminal> getTicketTerminals() {
+        return attractionsDAO.getTicketTerminals();
+    }
+
+    @Override
+    @Transactional
+    public void createTicketTerminal(TicketTerminal ticketTerminal) {
+        attractionsDAO.createTicketTerminal(ticketTerminal);
+    }
+
+    @Override
+    @Transactional
+    public TicketTerminal getTicketTerminal(String idTicketTerminal) {
+        return attractionsDAO.getTicketTerminal(idTicketTerminal);
+    }
+
+    @Override
+    @Transactional
+    public void deleteTicketTerminal(String idTicketTerminal) {
+        attractionsDAO.deleteTicketTerminal(idTicketTerminal);
+    }
+
+    @Override
+    @Transactional
+    public void createCustomer(Customer customer) {
+        attractionsDAO.createCustomer(customer);
+    }
+
+    @Override
+    @Transactional
+    public Customer getCustomer(String idCustomer) {
+        return attractionsDAO.getCustomer(idCustomer);
+    }
+
+    @Override
+    @Transactional
+    public void deleteCustomer(String idCustomer) {
+        attractionsDAO.deleteCustomer(idCustomer);
+    }
+
 
     @Override
     @Transactional

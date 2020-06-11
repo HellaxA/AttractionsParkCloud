@@ -38,28 +38,18 @@ public class AdminController {
 
     @GetMapping("/admin-page/attractions")
     public String attractionsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
-
         if(!passwordValidator.getPassword().equals("1")) {
             return "admin/staff-only-page";
         }
         List<Attraction> attractions = attractionsService.getAttractions();
         model.addAttribute("attractions", attractions);
         model.addAttribute("passwordValidator", passwordValidator);
-        return "admin/attractions-page";
+        return "admin/attraction/attractions-page";
     }
-
-    @GetMapping("/ticket-terminals")
-    public String ticketTerminalsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
-        if(!passwordValidator.getPassword().equals("1")) {
-            return "admin/staff-only-page";
-        }
-        model.addAttribute("passwordValidator", passwordValidator);
-        return "admin/ticket-terminals-page";
-    }
-
 
     @GetMapping("/admin-page/deleteAttraction")
-    public String deleteCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator, @RequestParam("attractionId") String attractionId, Model model) {
+    public String deleteAttraction(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                 @RequestParam("attractionId") String attractionId, Model model) {
         if(!passwordValidator.getPassword().equals("1")) {
             return "admin/staff-only-page";
         }
@@ -70,7 +60,7 @@ public class AdminController {
         model.addAttribute("attractions", attractions);
         model.addAttribute("passwordValidator", passwordValidator);
 
-        return "admin/attractions-page";
+        return "admin/attraction/attractions-page";
     }
 
 
@@ -83,7 +73,7 @@ public class AdminController {
         model.addAttribute("passwordValidator", passwordValidator);
         model.addAttribute("attraction", attraction);
 
-        return "admin/add-attraction-page";
+        return "admin/attraction/add-attraction-page";
     }
 
     @GetMapping("/admin-page/saveAttraction")
@@ -101,7 +91,238 @@ public class AdminController {
                 request.getParameter("ID_administrator"));
         //attractionsService.createAttraction(attraction);
         model.addAttribute("passwordValidator", new PasswordValidator(request.getParameter("passwordValidator")));
-        return "admin/save-attraction-page";
+        return "admin/attraction/save-attraction-page";
+    }
+
+    @GetMapping("/admin-page/formUpdateAttraction")
+    public String updateAttraction(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("attractionName") String attractionName, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        Attraction attraction = attractionsService.getAttraction(attractionName);
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("attraction", attraction);
+
+        return "admin/attraction/add-attraction-page";
+    }
+
+
+    @GetMapping("/admin-page/administrators")
+    public String administratorsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        List<Administrator> administrators = attractionsService.getAdministrators();
+        model.addAttribute("administrators", administrators);
+        model.addAttribute("passwordValidator", passwordValidator);
+        return "admin/administrator/administrators-page";
+    }
+
+
+    @GetMapping("/admin-page/addNewAdmin")
+    public String addAdmin(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        Administrator administrator = new Administrator();
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("administrator", administrator);
+
+        return "admin/administrator/add-administrator-page";
+    }
+
+    @GetMapping("/admin-page/saveAdministrator")
+    public String saveAdministrator(HttpServletResponse response, HttpServletRequest request, Model model) {
+        if(!request.getParameter("passwordValidator").equals("1")) {
+            return "admin/staff-only-page";
+        }
+        Administrator administrator = new Administrator(
+                request.getParameter("idAdministrator"), request.getParameter("phoneNumber"),
+                request.getParameter("email"), request.getParameter("firstName"),
+                request.getParameter("surname"), request.getParameter("middleName"),
+                request.getParameter("position")
+                );
+
+        administrator.setPassword(request.getParameter("password"));
+        attractionsService.createAdministrator(administrator);
+
+        //attractionsService.createAttraction(attraction);
+        model.addAttribute("passwordValidator", new PasswordValidator(request.getParameter("passwordValidator")));
+        return "admin/administrator/save-administrator-page";
+    }
+
+    @GetMapping("/admin-page/formUpdateAdministrator")
+    public String formUpdateAdministrator(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("idAdministrator") String idAdministrator, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        Administrator administrator = attractionsService.getAdministrator(idAdministrator);
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("administrator", administrator);
+
+        return "admin/administrator/add-administrator-page";
+    }
+
+    @GetMapping("/admin-page/deleteAdministrator")
+    public String deleteAdministrator(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                 @RequestParam("idAdministrator") String idAdministrator, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        attractionsService.deleteAdministrator(idAdministrator);
+
+        List<Administrator> administrators = attractionsService.getAdministrators();
+        model.addAttribute("administrators", administrators);
+        model.addAttribute("passwordValidator", passwordValidator);
+
+        return "admin/administrator/administrators-page";
+    }
+
+
+    @GetMapping("/admin-page/ticketTerminals")
+    public String ticketTerminalsCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        List<TicketTerminal> ticketTerminals = attractionsService.getTicketTerminals();
+        model.addAttribute("ticketTerminals", ticketTerminals);
+        model.addAttribute("passwordValidator", passwordValidator);
+        return "admin/ticketTerminal/ticket-terminals-page";
+    }
+
+    @GetMapping("/admin-page/addNewTicketTerminal")
+    public String addTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        TicketTerminal ticketTerminal = new TicketTerminal();
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("ticketTerminal", ticketTerminal);
+
+        return "admin/ticketTerminal/add-ticket-terminal-page";
+    }
+
+    @GetMapping("/admin-page/saveTicketTerminal")
+    public String saveTicketTerminal(HttpServletResponse response, HttpServletRequest request, Model model) {
+        if(!request.getParameter("passwordValidator").equals("1")) {
+            return "admin/staff-only-page";
+        }
+        TicketTerminal ticketTerminal = new TicketTerminal(
+                request.getParameter("idTicketTerminal"), request.getParameter("paymentType"));
+
+        attractionsService.createTicketTerminal(ticketTerminal);
+
+        //attractionsService.createAttraction(attraction);
+        model.addAttribute("passwordValidator", new PasswordValidator(request.getParameter("passwordValidator")));
+        return "admin/ticketTerminal/save-ticket-terminal-page";
+    }
+
+    @GetMapping("/admin-page/formUpdateTicketTerminal")
+    public String updateTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("idTicketTerminal") String idTicketTerminal, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        TicketTerminal ticketTerminal = attractionsService.getTicketTerminal(idTicketTerminal);
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("ticketTerminal", ticketTerminal);
+
+        return "admin/ticketTerminal/add-ticket-terminal-page";
+    }
+
+    @GetMapping("/admin-page/deleteTicketTerminal")
+    public String deleteTicketTerminal(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("idTicketTerminal") String idTicketTerminal, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        attractionsService.deleteTicketTerminal(idTicketTerminal);
+
+        List<TicketTerminal> ticketTerminals = attractionsService.getTicketTerminals();
+        model.addAttribute("ticketTerminals", ticketTerminals);
+        model.addAttribute("passwordValidator", passwordValidator);
+
+        return "admin/ticketTerminal/ticket-terminals-page";
+    }
+
+
+    @GetMapping("/admin-page/customers")
+    public String customersCRUD(@RequestParam("passwordValidator") PasswordValidator passwordValidator, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        List<Customer> customers = attractionsService.getCustomers();
+        model.addAttribute("customers", customers);
+        model.addAttribute("passwordValidator", passwordValidator);
+        return "admin/customer/customers-page";
+    }
+
+    @GetMapping("/admin-page/addNewCustomer")
+    public String addCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+        Customer customer = new Customer();
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("customer", customer);
+
+        return "admin/customer/add-customer-page";
+    }
+
+
+    @GetMapping("/admin-page/saveCustomer")
+    public String saveCustomer(HttpServletResponse response, HttpServletRequest request, Model model) {
+        if(!request.getParameter("passwordValidator").equals("1")) {
+            return "admin/staff-only-page";
+        }
+        Customer customer = new Customer(
+                request.getParameter("idCustomer"), request.getParameter("date"));
+        customer.setEmail(request.getParameter("email"));
+
+        attractionsService.createCustomer(customer);
+
+        //attractionsService.createAttraction(attraction);
+        model.addAttribute("passwordValidator", new PasswordValidator(request.getParameter("passwordValidator")));
+        return "admin/customer/save-customer-page";
+    }
+
+    @GetMapping("/admin-page/formUpdateCustomer")
+    public String updateCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("idCustomer") String idCustomer, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        Customer customer = attractionsService.getCustomer(idCustomer);
+        model.addAttribute("passwordValidator", passwordValidator);
+        model.addAttribute("customer", customer);
+
+        return "admin/customer/add-customer-page";
+    }
+
+
+    @GetMapping("/admin-page/deleteCustomer")
+    public String deleteCustomer(@RequestParam("passwordValidator") PasswordValidator passwordValidator,
+                                   @RequestParam("idCustomer") String idCustomer, Model model) {
+        if(!passwordValidator.getPassword().equals("1")) {
+            return "admin/staff-only-page";
+        }
+
+        attractionsService.deleteCustomer(idCustomer);
+
+        List<Customer> customers = attractionsService.getCustomers();
+        model.addAttribute("customers", customers);
+        model.addAttribute("passwordValidator", passwordValidator);
+
+        return "admin/customer/customers-page";
     }
 
 }
+//deleteCustomer

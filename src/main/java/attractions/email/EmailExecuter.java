@@ -25,10 +25,12 @@ public class EmailExecuter {
         }
         StringBuilder result = new StringBuilder();
         result.append("Do not show this key to anybody! Save it, so that you can visit our attractions!\n");
-        result.append("Name of attraction");
+        result.append("Name of attraction\n");
         result.append(attractionTimes);
         result.append("Total price:\t");
-        result.append(ticket.getTicketPrice() + "\n");
+        result.append(ticket.getTicketPrice() + "$\n");
+        result.append("Date and time buy:");
+        result.append(ticket.getDateOfIssuance() + "\n");
         result.append("Ticket unique key:\t");
         result.append(ticket.getAccessKey());
 

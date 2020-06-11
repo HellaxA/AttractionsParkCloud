@@ -22,4 +22,25 @@ public interface AttractionsService {
 
     void createAttraction(Attraction attraction, String idTST, String idAdmin);
 
+    List<Administrator> getAdministrators();
+
+    void createAdministrator(Administrator administrator);
+
+    Administrator getAdministrator(String idAdministrator);
+
+    void deleteAdministrator(String idAdministrator);
+
+    List<TicketTerminal> getTicketTerminals();
+
+    void createTicketTerminal(TicketTerminal ticketTerminal);
+
+    TicketTerminal getTicketTerminal(String idTicketTerminal);
+
+    void deleteTicketTerminal(String idTicketTerminal);
+
+    void createCustomer(Customer customer);
+
+    Customer getCustomer(String idCustomer);
+
+    void deleteCustomer(String idCustomer);
 }

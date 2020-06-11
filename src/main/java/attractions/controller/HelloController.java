@@ -27,27 +27,6 @@ public class HelloController {
         return "customer/home-page";
     }
 
-    @GetMapping("/showTickets")
-    public String showTickets(Model model) {
-        List<Ticket> tickets = attractionsService.getTickets();
-        model.addAttribute("tickets", tickets);
-        return "customer/show-tickets-page";
-
-    }
-
-    @GetMapping("/showCustomers")
-    public String showCustomers(Model model) {
-        //attractionsService.createTicket();
-        //  attractionsService.createTicketRow();
-        List<Customer> customers = attractionsService.getCustomers();
-        List<Attraction> attractions = attractionsService.getAttractions();
-
-        model.addAttribute("customers", customers);
-        model.addAttribute("attractions", attractions);
-
-        return "customer/show-customers-page";
-    }
-
     @GetMapping("/buyForm")
     public String buyTicket(Model model) {
         //6 attractions + customer email
