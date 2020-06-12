@@ -30,8 +30,8 @@
     <bean id="myDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
           destroy-method="close">
         <property name="driverClass" value="com.mysql.cj.jdbc.Driver" />
-        <property name="jdbcUrl" value="jdbc:mysql://35.227.27.128:3306/attractions" />
-        <property name="user" value="root" />
+        <property name="jdbcUrl" value="jdbc:mysql://127.0.01:3306/attractions" />
+        <property name="user" value="attractions" />
         <property name="password" value="attractions" />
         <!-- these are connection pool properties for C3P0 -->
         <property name="minPoolSize" value="5" />

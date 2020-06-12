@@ -43,9 +43,6 @@
 <form:form action="sendTicket" modelAttribute="dynamicForm" onsubmit="return validateNumber() && validateEmail()    ">
     <table>
         <tr>
-
-        </tr>
-        <tr>
             <td>
                 Email(*):
             </td>
@@ -61,7 +58,12 @@
             <td>
                 <form:input path="tickets[0]" id="number"/>
             </td>
-            <td><a href="" >Details</td>
+            <td>
+                <c:url var="details0" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[0]}" />
+                </c:url>
+                <a href="${details0}" >Details</a>
+            </td>
         </tr>
         <tr>
             <td>
@@ -69,6 +71,12 @@
             </td>
             <td>
                 <form:input path="tickets[1]" id="number"/>
+            </td>
+            <td>
+                <c:url var="details1" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[1]}" />
+                </c:url>
+                <a href="${details1}" >Details</a>
             </td>
         </tr>
         <tr>
@@ -78,6 +86,13 @@
             <td>
                 <form:input path="tickets[2]" id="number"/>
             </td>
+
+            <td>
+                <c:url var="details2" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[2]}" />
+                </c:url>
+                <a href="${details2}" >Details</a>
+            </td>
         </tr>
         <tr>
             <td>
@@ -85,6 +100,12 @@
             </td>
             <td>
                 <form:input path="tickets[3]" id="number"/>
+            </td>
+            <td>
+                <c:url var="details3" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[3]}" />
+                </c:url>
+                <a href="${details3}" >Details</a>
             </td>
         </tr>
         <tr>
@@ -94,6 +115,12 @@
             <td>
                 <form:input path="tickets[4]" id="number"/>
             </td>
+            <td>
+                <c:url var="details4" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[4]}" />
+                </c:url>
+                <a href="${details4}" >Details</a>
+            </td>
         </tr>
         <tr>
             <td>
@@ -101,6 +128,12 @@
             </td>
             <td>
                 <form:input path="tickets[5]" id="number"/>
+            </td>
+            <td>
+                <c:url var="details5" value="/detailsAttraction" >
+                    <c:param name="attractionName" value="${dynamicForm.attractionNames[5]}" />
+                </c:url>
+                <a href="${details5}" >Details</a>
             </td>
         </tr>
         <tr>

@@ -2,7 +2,6 @@ package attractions.controller;
 
 import attractions.email.EmailExecuter;
 import attractions.entity.Attraction;
-import attractions.entity.Customer;
 import attractions.entity.DynamicForm;
 import attractions.entity.Ticket;
 import attractions.service.AttractionsService;
@@ -12,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.HashMap;
 import java.util.List;
@@ -58,6 +58,16 @@ public class HelloController {
         model.addAttribute("ticket", ticket);
         model.addAttribute("attractions", attractions);
         return "customer/sent-page";
+    }
+
+
+    @GetMapping("/detailsAttraction")
+    public String detailsAttraction(@RequestParam("attractionName") String attractionName, Model model) {
+
+        Attraction attraction = attractionsService.getAttraction(attractionName);
+        model.addAttribute("attraction", attraction);
+
+        return "customer/details-attraction";
     }
 
 
