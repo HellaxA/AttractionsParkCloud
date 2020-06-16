@@ -64,6 +64,7 @@ public class HelloController {
     @GetMapping("/detailsAttraction")
     public String detailsAttraction(@RequestParam("attractionName") String attractionName, Model model) {
 
+
         Attraction attraction = attractionsService.getAttraction(attractionName);
         model.addAttribute("attraction", attraction);
 

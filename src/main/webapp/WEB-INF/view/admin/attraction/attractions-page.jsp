@@ -10,18 +10,22 @@
 <html>
 <head>
     <title>Attractions CRUD</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
 </head>
 <body>
-<table>
+<table class="paleBlueRows" align="center">
     <tr>
-        <td>ID</td>
-        <td>Age category</td>
-        <td>Duration</td>
-        <td>Height</td>
-        <td>Administrator email</td>
-        <td>Tech Support Team id</td>
-        <td>Name Of Attraction</td>
-        <td>Price Of Attraction</td>
+        <th>ID</th>
+        <th>Age category</th>
+        <th>Duration</th>
+        <th>Height</th>
+        <th>Administrator email</th>
+        <th>Tech Support Team id</th>
+        <th>Name Of Attraction</th>
+        <th>Price Of Attraction</th>
+        <th></th>
     </tr>
     <c:forEach var="attraction" items="${attractions}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteAttraction">
@@ -43,14 +47,13 @@
             <td>${attraction.priceOfAttraction}</td>
             <td>
                 <a href="${updateLink}">Update</a>
-                |
                 <a href="${deleteLink}"
                 onclick="if (!(confirm('Are you sure you want to delete this attraction?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <td>
+        <td colspan="9">
             <c:url var="addLink" value="/admin-login/admin-page/addNewAttraction" >
                 <c:param name="passwordValidator" value="${passwordValidator.password}" />
             </c:url>
@@ -58,19 +61,18 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="5">
             <p>
                 <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
             </p>
         </td>
-    </tr>
-    <tr>
-        <td>
+        <td colspan="4">
             <p>
                 <a href="${pageContext.request.contextPath}/home">Back to home</a>
             </p>
         </td>
     </tr>
+
 </table>
 </body>
 </html>

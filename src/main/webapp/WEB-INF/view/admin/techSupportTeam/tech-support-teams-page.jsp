@@ -10,12 +10,21 @@
 <html>
 <head>
     <title>Tech Support Team Crud</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<table>
+<table class="paleBlueRows" align="center">
     <tr>
-        <td>ID_team</td>
-        <td>Specialization</td>
+        <th>ID_team</th>
+        <th>Specialization</th>
+        <th></th>
     </tr>
     <c:forEach var="techSupportTeam" items="${techSupportTeams}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteTechSupportTeam">
@@ -32,14 +41,13 @@
 
             <td>
                 <a href="${updateLink}">Update</a>
-                |
                 <a href="${deleteLink}"
                    onclick="if (!(confirm('Are you sure you want to delete this tech support team?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <td>
+        <td colspan="3">
             <c:url var="addLink" value="/admin-login/admin-page/addNewTechSupportTeam">
                 <c:param name="passwordValidator" value="${passwordValidator.password}"/>
             </c:url>
@@ -52,14 +60,17 @@
                 <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
             </p>
         </td>
-    </tr>
-    <tr>
+
         <td>
             <p>
                 <a href="${pageContext.request.contextPath}/home">Back to home</a>
             </p>
         </td>
+        <td>
+
+        </td>
     </tr>
+
 </table>
 </body>
 </html>

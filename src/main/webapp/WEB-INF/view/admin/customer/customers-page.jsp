@@ -10,13 +10,17 @@
 <html>
 <head>
     <title>Customers</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
 </head>
 <body>
-<table>
+<table class="paleBlueRows" align="center">
     <tr>
-        <td>ID_customer</td>
-        <td>E-mail</td>
-        <td>Date_of_attendance</td>
+        <th>ID_customer</th>
+        <th>E-mail</th>
+        <th>Date_of_attendance</th>
+        <th></th>
     </tr>
     <c:forEach var="customer" items="${customers}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteCustomer">
@@ -34,14 +38,13 @@
 
             <td>
                 <a href="${updateLink}">Update</a>
-                |
                 <a href="${deleteLink}"
                    onclick="if (!(confirm('Are you sure you want to delete this customer?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <td>
+        <td colspan="4">
             <c:url var="addLink" value="/admin-login/admin-page/addNewCustomer">
                 <c:param name="passwordValidator" value="${passwordValidator.password}"/>
             </c:url>
@@ -49,14 +52,13 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="2">
             <p>
                 <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
             </p>
         </td>
-    </tr>
-    <tr>
-        <td>
+
+        <td colspan="2">
             <p>
                 <a href="${pageContext.request.contextPath}/home">Back to home</a>
             </p>

@@ -10,17 +10,22 @@
 <html>
 <head>
     <title>Administrators CRUD</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
+
 </head>
 <body>
-<table>
+<table class="paleBlueRows" align="center">
     <tr>
-        <td>ID_administrator</td>
-        <td>Phone_number</td>
-        <td>E_mail</td>
-        <td>First_name</td>
-        <td>Surname</td>
-        <td>Middle_name</td>
-        <td>Position</td>
+        <th>ID_administrator</th>
+        <th>Phone_number</th>
+        <th>E_mail</th>
+        <th>First_name</th>
+        <th>Surname</th>
+        <th>Middle_name</th>
+        <th>Position</th>
+        <th></th>
     </tr>
     <c:forEach var="admin" items="${administrators}">
         <c:url var="deleteLink" value="/admin-login/admin-page/deleteAdministrator">
@@ -41,14 +46,13 @@
             <td>${admin.position}</td>
             <td>
                 <a href="${updateLink}">Update</a>
-                |
                 <a href="${deleteLink}"
                    onclick="if (!(confirm('Are you sure you want to delete this admin?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <td>
+        <td colspan="8">
             <c:url var="addLink" value="/admin-login/admin-page/addNewAdmin">
                 <c:param name="passwordValidator" value="${passwordValidator.password}"/>
             </c:url>
@@ -56,19 +60,19 @@
         </td>
     </tr>
     <tr>
-        <td>
+        <td colspan="4">
             <p>
                 <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
             </p>
         </td>
-    </tr>
-    <tr>
-        <td>
+
+        <td colspan="4">
             <p>
                 <a href="${pageContext.request.contextPath}/home">Back to home</a>
             </p>
         </td>
     </tr>
+
 </table>
 </body>
 </html>

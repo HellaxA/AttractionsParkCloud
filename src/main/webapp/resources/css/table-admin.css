@@ -1,0 +1,46 @@
+table.paleBlueRows {
+    font-family: "Times New Roman", Times, serif;
+    border: 1px solid black;
+    width: 600px;
+    height: 400px;
+    text-align: center;
+    border-collapse: collapse;
+    font-size: 20px;
+    color: black;
+
+}
+table.paleBlueRows td, table.paleBlueRows th {
+    border: 1px solid black;
+    padding: 3px 2px;
+}
+table.paleBlueRows tbody td {
+    font-size: 18px;
+}
+table.paleBlueRows tr:nth-child(even) {
+    background: #f44336;
+}
+
+table.paleBlueRows tr:nth-child(odd) {
+    background: #666666;
+}
+table.paleBlueRows thead {
+
+    background: #666666;
+    border-bottom: 5px solid #666666;
+}
+table.paleBlueRows thead th {
+
+    font-size: 19px;
+    font-weight: bold;
+    color: black;
+    text-align: center;
+    border-left: 2px solid black;
+}
+table.paleBlueRows thead th:first-child {
+    border-left: none;
+}
+
+body {
+    background: #f44336;
+}
+

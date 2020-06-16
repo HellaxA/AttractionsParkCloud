@@ -11,6 +11,9 @@
 <html>
 <head>
     <title>CRUD</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
 </head>
 <body>
     <c:url var="attractionsCRUD" value="/admin-login/admin-page/attractions" >
@@ -33,7 +36,7 @@
         <c:param name="passwordValidator" value="${passwordValidator.password}" />
     </c:url>
 
-<table>
+    <table class="paleBlueRows" align="center">
     <tr>
         <td>
             <a href="${attractionsCRUD}" >Attractions</a>

@@ -10,12 +10,16 @@
 <html>
 <head>
     <title>Ticket Terminal CRUD</title>
+    <link type="text/css"
+          rel="stylesheet"
+          href="${pageContext.request.contextPath}/resources/css/table-admin.css" />
 </head>
 <body>
-<table>
+<table class="paleBlueRows" align="center">
     <tr>
-        <td>ID_ticket_terminal</td>
-        <td>Payment_type</td>
+        <th>ID_ticket_terminal</th>
+        <th>Payment_type</th>
+        <th></th>
 
     </tr>
     <c:forEach var="ticketTerminal" items="${ticketTerminals}">
@@ -33,14 +37,13 @@
 
             <td>
                 <a href="${updateLink}">Update</a>
-                |
                 <a href="${deleteLink}"
                    onclick="if (!(confirm('Are you sure you want to delete this ticket terminal?'))) return false">Delete</a>
             </td>
         </tr>
     </c:forEach>
     <tr>
-        <td>
+        <td colspan="9">
             <c:url var="addLink" value="/admin-login/admin-page/addNewTicketTerminal" >
                 <c:param name="passwordValidator" value="${passwordValidator.password}" />
             </c:url>
@@ -53,14 +56,14 @@
                 <a href="${pageContext.request.contextPath}/admin-login/staff-only">Back to staff page</a>
             </p>
         </td>
-    </tr>
-    <tr>
         <td>
             <p>
                 <a href="${pageContext.request.contextPath}/home">Back to home</a>
             </p>
         </td>
+        <td></td>
     </tr>
+
 </table>
 </body>
 </html>
