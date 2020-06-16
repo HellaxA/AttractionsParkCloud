@@ -39,7 +39,7 @@
 </div>
 
 <div id="admin">
-<input type="button" value="Login as a Administrator"
+<input type="button" value="Login as Administrator"
        onclick="window.location.href='admin-login/staff-only'; return false;"
        class="w3-button w3-black w3-padding-large w3-large w3-margin-top">
 </div>
